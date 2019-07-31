@@ -15,7 +15,7 @@ Chaque partie à besoin de données, celles-ci peuvent être extraites grâce au
 Pour convertir un fichier audio en donnée lisible par le programme il faut faire: 
 ```"path_to_smile_extract"/SMILExtract_Release.exe -C OpenSmileConfiguration/extract2.conf -I "path_to_audio" -O "path_to_out"```
 
-Par la suite changer le fichier constante.py pour ajouter votre session pour ceci faites:
+Par la suite changer le fichier constante.py, pour ceci faites:
 ````python
 session = <number_session>
 if session == <number_session>:
@@ -23,6 +23,7 @@ if session == <number_session>:
     offset = <decalage de vos piste en secondes>
     max_len = <taille maximum de vos piste en seconde>
 ````
+
 ##Utilisation
 Vous pouvez voir l'utilisation des différentes partie dans les main respectifs:
 * backchannels: Pas au point actuellement
