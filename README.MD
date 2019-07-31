@@ -1,5 +1,3 @@
-#README
-
 ## Introduction
 
 Ce projet fournie un ensemble de méthodes permettant:
