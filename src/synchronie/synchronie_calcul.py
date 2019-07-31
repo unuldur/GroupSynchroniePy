@@ -5,6 +5,12 @@ from utils import *
 
 
 def turn_taking_method(peoples, names):
+    """
+    Method pour calculer la synchronie consistant à utiliser le turn taking
+    :param peoples: la liste des pistes presentes format isTurn
+    :param names: le nom des pistes
+    :return: la valeur de synchronie
+    """
     time_speak = who_speak_next_v3(peoples, names)
     synchronie = [[], [], []]
     end_last = None
@@ -28,6 +34,14 @@ def turn_taking_method(peoples, names):
 
 
 def compare_method(peoples, windows_size, rng_tot_people, rag):
+    """
+    Calcule du taux de synchronie consistant à faire un max du taux de synchronie par dyade
+    :param peoples: liste des pistes sous format d'utterance
+    :param windows_size: la taille d'une fenetre pour faire le max
+    :param rng_tot_people: le début et la fin de toute les pistes
+    :param rag: range voulue dans les pistes
+    :return: la valeur de la synchronie de groupe
+    """
     peoples = list(filter(lambda x: x is not None, [people if off[0] - rag[0] <= 80 and off[1] - rag[1] >= -80 else None for (people, off) in zip(peoples, rng_tot_people)]))
     end_real = max([0 if len(speak) == 0 else speak[-1][1] for speak in peoples])
     start_real = min([0 if len(speak) == 0 else speak[0][0] for speak in peoples])
@@ -68,6 +82,13 @@ def compare_method(peoples, windows_size, rng_tot_people, rag):
 
 
 def other_ratio_synchrony_method(peoples, rng_tot_people, rag):
+    """
+    Méthode pour calculer le taux de synchronie consistant à prendre le temps minimal de latences dans les autres pistes
+    :param peoples: liste des pistes sous format liste d'utterance (début, fin)
+    :param rng_tot_people: le début et la fin de toute les pistes
+    :param rag: range voulue dans les pistes
+    :return: la valeur du taux de synchronie de groupe
+    """
     peoples = list(filter(lambda x: x is not None, [people if off[0] - rag[0] <= 80 and off[1] - rag[1] >= -80 else None for (people, off) in zip(peoples, rng_tot_people)]))
     lats = [[] for _ in range(len(peoples))]
     for i, speak_list in enumerate(peoples):
@@ -94,6 +115,18 @@ def other_ratio_synchrony_method(peoples, rng_tot_people, rag):
 
 
 def synchronie_with_features(times, datas, windows_size, rag, offset, rng_tot_people, verbose=False):
+    """
+    Méthode permettant de calculer la synchronie de groupe à partir du taux de synchronie, du temps de pause, du silence
+    et du temps de paroles.
+    :param times: liste des personnes sous format liste d'utterance (début, fin)
+    :param datas: liste des personnes sous format isTurn
+    :param windows_size: taille de la fenetre pour la méthode synchronie n°2
+    :param rag: la range voulue dans la piste pour la synchronie
+    :param offset: l'offset de chaque piste
+    :param rng_tot_people: le début et la fin de toute les pistes
+    :param verbose: Affichage textuelle ou pas
+    :return: une valeur de synchronie de groupe
+    """
     features_res = plot_feature(datas, ['pauseTime', 'speakTime', 'silence'], rag[0], rag[1], offset, plot=False,
                                 length_frame=rag[1] - rag[0] if rag[1] is not None else 3600,
                                 norm=0)

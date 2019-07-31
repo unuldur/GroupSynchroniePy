@@ -37,6 +37,26 @@ def convert_dict_reader(reader):
 
 def plot_feature(datas, feature_str, start, end, offset, length_frame=3, plot=True, norm=1, plot_type=0,
                  save_plot=False, directory_plot="./plot.png"):
+    """
+    Permet de calculer les features et de les afficher au besoin
+    :param datas: Dictionnaire contenant une collone "isTurn"
+    :param feature_str: Le nom de la feature voulue ou une liste de feature voulue parmit celle ci: pauseTime,
+                turnPauseRatio, silence, turnDuration, speakTime,
+                overlap
+    :param start: debut du calcul dans la piste
+    :param end:  fin du calcul dans la piste
+    :param offset: list contenant les decalage des differents pistes
+    :param length_frame: taille d'une frame pour le calcul d'une valeur pour les features
+    :param plot: Afficher à la fin les résultats
+    :param norm: 0 -> normalizer la features
+                 1 -> normalizer en fonction des autres pistes(ne marche pas sur certaines features)
+                 2 -> ne pas normalizer
+    :param plot_type: 0 -> histogramme
+                      1 -> affichage avec valeurs des différentes pistes les une au dessus des autres
+    :param save_plot: Sauvegarder ou pas l'affichage
+    :param directory_plot:  Localisation de la sauvegarde './plot.png' de base
+    :return: Un object GetFeature ou une liste d'object GetFeature
+    """
     feature = None
     if feature_str == "pauseTime":
         feature = get_feature.GetPauseTime(offset, frame_time, length_frame)
