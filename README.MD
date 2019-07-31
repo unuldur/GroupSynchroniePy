@@ -23,7 +23,7 @@ if session == <number_session>:
     offset = <decalage de vos piste en secondes>
     max_len = <taille maximum de vos piste en seconde>
 ````
-#Utilisation
+##Utilisation
 Vous pouvez voir l'utilisation des différentes partie dans les main respectifs:
 * backchannels: Pas au point actuellement
 * calcule des features: 'features/main.py'
